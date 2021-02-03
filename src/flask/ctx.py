@@ -1,4 +1,5 @@
 import sys
+import warnings
 from functools import update_wrapper
 
 from werkzeug.exceptions import HTTPException
@@ -299,10 +300,22 @@ class RequestContext:
 
     @property
     def g(self):
+        warnings.warn(
+            "The 'g' attribute has been migrated as 'current_app.g'. The old attr"
+            " will be removed in Flask 2.1.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return _app_ctx_stack.top.g
 
     @g.setter
     def g(self, value):
+        warnings.warn(
+            "The 'g' attribute has been migrated as 'current_app.g'. The old attr"
+            " will be removed in Flask 2.1.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         _app_ctx_stack.top.g = value
 
     def copy(self):
